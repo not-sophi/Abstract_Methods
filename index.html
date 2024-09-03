@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>WS2_001</title>
+	<title>new_001</title>
 	<meta charset="utf-8">
 	<!-- Compiled w/ P5LIVE, http://github.com/ffd8/p5live -->
 	<style type="text/css">
@@ -34,7 +34,7 @@
 <body style="background: rgb(0, 0, 0);">
 
 <script type="text/javascript">
-//WS2_001
+//new_001
 
 /* CUSTOM FUNCTIONS FOR P5LIVE */
 // keep fullscreen if window resized
@@ -53,12 +53,6 @@ function println(msg){
 }
 
 
-// Bouncing img[index] Logo
-// Daniel Shiffman
-// https://thecodingtrain.com/challenges/131-bouncing-img[index-logo.html
-// https://youtu.be/0j86zuqqTlQ
-// https://editor.p5js.org/codingtrain/sketches/S-es-dYVn
-
 let x;
 let y;
 
@@ -68,12 +62,10 @@ let yspeed;
 let img = [];
 let index = 0;
 
-
 function preload() {
 	img[0] = loadImage('https://i.imgur.com/GbbeZcJ.png');
-	//	img[1] = loadImage('https://i.imgur.com/W7bozzA.png');
-	//	img[2] = loadImage('https://i.imgur.com/JOSJFRy.png');
-
+	img[1] = loadImage('https://i.imgur.com/W7bozzA.png');
+	img[2] = loadImage('https://i.imgur.com/JOSJFRy.png');
 }
 
 function setup() {
@@ -83,40 +75,43 @@ function setup() {
 	xspeed = 3;
 	yspeed = 3;
 
+	for(let i = 0; i < img.length; i++) {
+		img[i].resize(400, 400);
+	}
+
 	textAlign(CENTER, CENTER);
 	textSize(100);
 	fill(128, 128, 128);
 
 }
 
-
 function draw() {
 	background(0, 30);
-	
-	text('CATS', width/2, height/2)
-	// rect(x, y, 80, 60);
-	// Draw the img[index logo
 	image(img[index], x, y);
 
-	img[index].resize(400, 400)
+	text('CATS', width / 2, height / 2)
 
 	x = x + xspeed;
 	y = y + yspeed;
 
-	if(x + img[0].width >= width) {
+	if(x + img[index].width >= width) {
 		xspeed = -xspeed;
-		x = width - img[0].width;
+		x = width - img[index].width;
+		index = (index + 1) % img.length;
 	} else if(x <= 0) {
 		xspeed = -xspeed;
 		x = 0;
+		index = (index + 1) % img.length;
 	}
 
-	if(y + img[0].height >= height) {
+	if(y + img[index].height >= height) {
 		yspeed = -yspeed;
-		y = height - img[0].height;
+		y = height - img[index].height;
+		index = (index + 1) % img.length;
 	} else if(y <= 0) {
 		yspeed = -yspeed;
 		y = 0;
+		index = (index + 1) % img.length;
 	}
 }
 </script>
